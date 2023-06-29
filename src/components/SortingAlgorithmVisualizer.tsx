@@ -1,56 +1,36 @@
 import { useState } from "react";
 import Board from "./display/Board";
 import Prompt from "./ui/Prompt";
-// import selectionSort from "../selectionSort";
+import selectionSort from "../selectionSort";
 import { board, column } from "../interfaces/interfaces";
+import insertionSort from "../insertionSort";
 
 const SortingAlgorithmVisualizer = () => {
-  const [board, setBoard] = useState<board>({ columns: [] });
+  const [selectionSortBoard, setSelectionSortBoard] = useState<board>({
+    columns: [],
+  });
+  const [insertionSortBoard, setInsertionSortBoard] = useState<board>({
+    columns: [],
+  });
 
   const onGenerateBoardClick = (): void => {
-    const newBoard: board = { columns: [] };
-    for (let i = 0; i < 50; i++) {
-      newBoard.columns.push({
+    // const newBoard: board = { columns: [] };
+    const columns: column[] = [];
+    for (let i = 0; i < 30; i++) {
+      columns.push({
         value: Math.floor(Math.random() * 30),
-        isMin: false,
+        isColorOne: false,
+        isColorTwo: false,
+        isSeen: false,
       });
     }
-    setBoard(newBoard);
-  };
-  const selectionSort = async (columns: column[]) => {
-    console.log(board);
-    // iterate through array
-    for (let i = 0; i < columns.length; i++) {
-      // for each iteration, find the min and select it
-      let currMinIndex = i;
-
-      // find the min remaining element
-      for (let j = i + 1; j < columns.length; j++) {
-        if (columns[j].value < columns[currMinIndex].value) {
-          currMinIndex = j;
-        }
-      }
-      columns[currMinIndex].isMin = true;
-      setBoard(() => ({ columns: [...columns] }));
-      await new Promise((resolve) => setTimeout(resolve, 50));
-
-      // swap
-      if (currMinIndex !== i) {
-        const temp = columns[i];
-        columns[i] = columns[currMinIndex];
-        columns[currMinIndex] = temp;
-      }
-
-      setBoard(() => ({ columns: [...columns] }));
-    }
-    console.log(board);
-    return board;
+    setSelectionSortBoard({ columns: JSON.parse(JSON.stringify(columns)) });
+    setInsertionSortBoard({ columns: JSON.parse(JSON.stringify(columns)) });
   };
 
   const onSolveClick = (): void => {
-    if (board) {
-      selectionSort(board.columns);
-    }
+    selectionSort(selectionSortBoard.columns, setSelectionSortBoard);
+    insertionSort(insertionSortBoard.columns, setInsertionSortBoard);
   };
 
   return (
@@ -59,7 +39,14 @@ const SortingAlgorithmVisualizer = () => {
         onGenerateBoardClick={onGenerateBoardClick}
         onSolveClick={onSolveClick}
       />
-      {board.columns.length >= 0 ? <Board board={board} /> : null}
+      <div className="board-table">
+        {selectionSortBoard.columns.length ? (
+          <Board board={selectionSortBoard} />
+        ) : null}
+        {insertionSortBoard.columns.length ? (
+          <Board board={insertionSortBoard} />
+        ) : null}
+      </div>
     </>
   );
 };

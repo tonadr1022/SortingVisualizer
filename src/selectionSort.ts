@@ -1,50 +1,61 @@
-const selectionSort = (nums: number[]) => {
-    console.log(nums)
-    // iterate through array
-    for (let i = 0; i < nums.length; i++) {
-// for each iteration, find the min and select it
-        let currMinIndex = i+1;
-        let currMin = nums[currMinIndex];
-        // find the min remaining element
-        for (let j = i+1; j < nums.length; j++) {
-            if (nums[j] < nums[currMinIndex]) {
-                currMin = nums[j];
-                currMinIndex = j;
-            }
-        }
-        // swap
-        if (currMin < nums[i]) {
-            const temp = nums[i];
-            nums[i] = nums[currMinIndex];
-            nums[currMinIndex] = temp;
-        }
+import { column, board } from "./interfaces/interfaces";
+
+const selectionSort = async (
+  columns: column[],
+  setBoard: React.Dispatch<React.SetStateAction<board>>
+) => {
+  // iterate through array
+  for (let i = 0; i < columns.length; i++) {
+    // for each iteration, find the min and select it
+    let currMinIndex = i;
+    // find the min remaining element
+    for (let j = i + 1; j < columns.length; j++) {
+      if (columns[j].value < columns[currMinIndex].value) {
+        currMinIndex = j;
+      }
+      await new Promise((resolve) => setTimeout(resolve, 20));
+
+      columns[j].isColorTwo = true;
+
+      columns[j - 1].isColorTwo = false;
+      setBoard(() => ({ columns: [...columns] }));
     }
-    console.log(nums)
-    return nums
-}
-export default selectionSort;
-// const selectionSort = (nums: number[]) => {
-//     console.log(nums)
-//     // iterate through array
-//     for (let i = 0; i < nums.length; i++) {
-// // for each iteration, find the min and select it
-//         let currMinIndex = i+1;
-//         let currMin = nums[currMinIndex];
-//         // find the min remaining element
-//         for (let j = i+1; j < nums.length; j++) {
-//             if (nums[j] < nums[currMinIndex]) {
-//                 currMin = nums[j];
-//                 currMinIndex = j;
-//             }
-//         }
-//         // swap
-//         if (currMin < nums[i]) {
-//             const temp = nums[i];
-//             nums[i] = nums[currMinIndex];
-//             nums[currMinIndex] = temp;
-//         }
+
+    // swap
+    if (currMinIndex !== i) {
+      const temp = columns[i];
+      columns[i] = columns[currMinIndex];
+      columns[currMinIndex] = temp;
+    }
+    columns[i].isColorOne = true;
+    columns[i].isColorTwo = false;
+    columns[columns.length - 1].isColorTwo = false;
+    setBoard(() => ({ columns: [...columns] }));
+  }
+};
+// const selectionSort = async (
+//   columns: column[],
+//   setBoard: React.Dispatch<React.SetStateAction<board>>
+// ) => {
+//   for (let i = 0; i < columns.length; i++) {
+//     let currMinIndex = i;
+
+//     for (let j = i + 1; j < columns.length; j++) {
+//       if (columns[j].value < columns[currMinIndex].value) {
+//         currMinIndex = j;
+//       }
 //     }
-//     console.log(nums)
-//     return nums
-// }
-// export default selectionSort;
+
+//     const temp = columns[i];
+//     columns[i] = columns[currMinIndex];
+//     columns[currMinIndex] = temp;
+
+//     for (let j = 0; j < columns.length; j++) {
+//       columns[j].isColorOne = j === currMinIndex || j === i;
+//     }
+
+//     setBoard((prevBoard) => ({ columns: [...columns] }));
+//     await new Promise((resolve) => setTimeout(resolve, 10));
+//   }
+// };
+export default selectionSort;

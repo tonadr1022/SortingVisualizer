@@ -1,7 +1,9 @@
 export interface board {
   columns: column[];
 }
-export type column = {
+export interface column {
   value: number;
-  isMin: boolean;
-};
+  isColorOne: boolean;
+  isColorTwo: boolean;
+  isSeen: boolean;
+}
