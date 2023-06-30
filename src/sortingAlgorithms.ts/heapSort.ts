@@ -1,9 +1,5 @@
-import { deepCopySimpleObject, pause } from "../components/utils";
-import {
-  board,
-  column,
-  sortingAlgorithmParams,
-} from "../interfaces/interfaces";
+import { pause } from "../components/utils";
+import { sortingAlgorithmParams } from "../interfaces/interfaces";
 import { swap } from "./sortingUtils";
 
 /**

@@ -12,14 +12,6 @@ import {
 } from "../sortingAlgorithms.ts/getInitialBoard";
 import { deepCopySimpleObject } from "./utils";
 
-// const sortingAlgorithms: {
-//   [key: string]: ({ board, setBoard }: sortingAlgorithmParams) => Promise<void>;
-// } = {
-//   Selection: selectionSort,
-//   Insertion: insertionSort,
-//   Bubble: bubbleSort,
-// };
-
 const SortingAlgorithmVisualizer = () => {
   const [numColumns, setNumColumns] = useState<number>(30);
   const randomColumns = getRandomColumns(30);

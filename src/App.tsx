@@ -1,9 +1,10 @@
-import SortingAlgorithmVisualizer from "./components/SortingAlgorithmVisualizer";
+import HomePage from "./components/HomePage";
 function App() {
   return (
     <>
-      <div>Sorting Algorithm Visualizer</div>
-      <SortingAlgorithmVisualizer />
+      {/* <div>Sorting Algorithm Visualizer</div>
+      <SortingAlgorithmVisualizer2 /> */}
+      <HomePage />
     </>
   );
 }

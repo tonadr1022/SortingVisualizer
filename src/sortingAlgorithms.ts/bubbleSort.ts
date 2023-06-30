@@ -30,6 +30,7 @@ const bubbleSort = async ({
       // element at j is no longer the current element
       columns[j].isCurrentElement = false;
       setBoard((prevBoard) => ({ ...prevBoard }));
+      console.log("bbbl");
     }
 
     // after ith column in position, update its state
@@ -45,12 +46,6 @@ const bubbleSort = async ({
       break;
     }
   }
-  // set board to sorted
-  setBoard((prevBoard) => ({
-    ...prevBoard,
-    isSorted: true,
-    isSorting: false,
-  }));
 };
 
 export default bubbleSort;
