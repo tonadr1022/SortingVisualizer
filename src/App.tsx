@@ -1,5 +1,4 @@
 import SortingAlgorithmVisualizer from "./components/SortingAlgorithmVisualizer";
-
 function App() {
   return (
     <>
