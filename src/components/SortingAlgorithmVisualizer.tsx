@@ -119,54 +119,9 @@ const SortingAlgorithmVisualizer = () => {
             ))}
           </tr>
         ))}
-        {/* {sortOrders.map((sortOrder) => (
-          <>
-            <tr key={sortOrder.name}>
-              {algorithms.map((algorithm) => (
-                <td>
-                  <Board
-                    handleBoardReset={handleBoardReset}
-                    key={`${algorithm.name}:${sortOrder.key}`}
-                    algorithmName={algorithm.name}
-                    sortOrderName={sortOrder.name}
-                    sortOrderKey={sortOrder.key}
-                    handleBoardSolve={handleBoardSolve}
-                    sortFunction={algorithm.sortFunction}
-                    initialColumns={sortOrder.initialColumns}
-                  />
-                </td>
-              ))}
-            </tr>
-          </>
-        ))} */}
       </tbody>
     </table>
   );
-  // return (
-  //   <div style={{ display: "flex", flexDirection: "row" }}>
-  //     <div className="board-table">
-  //       {sortOrders.map((sortOrder) => (
-  //         <>
-  //           <div key={sortOrder.name} className="board-columns">
-  //             <h6 style={{ margin: 0 }}>{sortOrder.name}</h6>
-  //             {algorithms.map((algorithm) => (
-  //               <Board
-  //                 handleBoardReset={handleBoardReset}
-  //                 key={`${algorithm.name}:${sortOrder.key}`}
-  //                 algorithmName={algorithm.name}
-  //                 sortOrderName={sortOrder.name}
-  //                 sortOrderKey={sortOrder.key}
-  //                 handleBoardSolve={handleBoardSolve}
-  //                 sortFunction={algorithm.sortFunction}
-  //                 initialColumns={sortOrder.initialColumns}
-  //               />
-  //             ))}
-  //           </div>
-  //         </>
-  //       ))}
-  //     </div>
-  //   </div>
-  // );
 };
 
 export default SortingAlgorithmVisualizer;
