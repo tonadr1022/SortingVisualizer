@@ -7,7 +7,7 @@ import { column } from "../interfaces/interfaces";
  * @param i first index to swap
  * @param j second index to swap
  */
-export const swap = (columns: column[], i: number, j: number): void => {
+export const swap = (columns: Column[], i: number, j: number): void => {
   const temp = columns[i];
   columns[i] = columns[j];
   columns[j] = temp;

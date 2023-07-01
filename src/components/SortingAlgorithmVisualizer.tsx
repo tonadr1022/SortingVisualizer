@@ -1,55 +1,48 @@
-import { useContext } from "react";
-import selectionSort from "../sortingAlgorithms.ts/selectionSort";
 import {
-  column,
-  onOneBoardSolveClickParams,
-  onResetClickParams,
+  Column,
+  HandleBoardSolveParams,
+  HandleBoardResetParams,
 } from "../interfaces/interfaces";
+import selectionSort from "../sortingAlgorithms.ts/selectionSort";
 import insertionSort from "../sortingAlgorithms.ts/insertionSort";
 import bubbleSort from "../sortingAlgorithms.ts/bubbleSort";
 import heapSort from "../sortingAlgorithms.ts/heapSort";
 import {
-  getFewUniqueColumns,
-  getNearlySortedColumns,
-  getRandomColumns,
-  getReverseColumns,
-} from "../utils/getInitialBoard";
+  useGetFewUniqueColumns,
+  useGetNearlySortedColumns,
+  useGetRandomColumns,
+  useGetReverseColumns,
+} from "../utils/getInitialColumns";
 import Board from "./ui/Board";
-import { NumColumnsContext } from "../pages/HomePage";
 
-const SortingAlgorithmVisualizer2 = () => {
-  const numColumns = useContext(NumColumnsContext);
-  const randomColumns = getRandomColumns(numColumns);
-  const reversedColumns = getReverseColumns(numColumns);
-  const nearlySortedColumns = getNearlySortedColumns(numColumns);
-  const fewUniqueColumns = getFewUniqueColumns(numColumns);
+const SortingAlgorithmVisualizer = () => {
+  const randomColumns = useGetRandomColumns();
+  const reversedColumns = useGetReverseColumns();
+  const nearlySortedColumns = useGetNearlySortedColumns();
+  const fewUniqueColumns = useGetFewUniqueColumns();
 
-  const onResetClick = ({
-    setBoard,
-    getColumnsFunction,
-    sortOrderName,
-  }: onResetClickParams) => {
-    let columns: column[];
-    if (sortOrderName === "Random") {
-      columns = randomColumns;
-    } else {
-      columns = getColumnsFunction(numColumns);
-    }
-    setBoard((prevBoard) => ({ ...prevBoard, columns }));
-    // getInitialBoard(prevBoard, getColumnsFunction, numColumns)
+  const sortOrderColumns: { [key: string]: Column[] } = {
+    random: randomColumns,
+    reversed: reversedColumns,
+    nearlySorted: nearlySortedColumns,
+    fewUnique: fewUniqueColumns,
   };
-  const onOneBoardSolveClick = ({
+  const handleBoardReset = ({
+    setBoard,
+    sortOrderKey,
+  }: HandleBoardResetParams) => {
+    const columns: Column[] = sortOrderColumns[sortOrderKey];
+
+    setBoard((prevBoard) => ({ ...prevBoard, columns }));
+  };
+
+  const handleBoardSolve = ({
     setBoard,
     sortFunction,
-    getColumnsFunction,
-    sortOrderName,
-  }: onOneBoardSolveClickParams) => {
-    let columns: column[];
-    if (sortOrderName === "Random") {
-      columns = randomColumns;
-    } else {
-      columns = getColumnsFunction(numColumns);
-    }
+    sortOrderKey,
+  }: HandleBoardSolveParams) => {
+    const columns = sortOrderColumns[sortOrderKey];
+
     setBoard((prevBoard) => {
       const updatedBoard = {
         ...prevBoard,
@@ -65,54 +58,115 @@ const SortingAlgorithmVisualizer2 = () => {
 
   const sortOrders = [
     {
-      sortOrderName: "Random",
-      getColumnsFunction: getRandomColumns,
+      key: "random",
+      name: "Random",
+      getColumnsFunction: useGetRandomColumns,
       initialColumns: randomColumns,
     },
     {
-      sortOrderName: "Reverse",
-      getColumnsFunction: getReverseColumns,
+      key: "reversed",
+      name: "Reversed",
+      getColumnsFunction: useGetReverseColumns,
       initialColumns: reversedColumns,
     },
     {
-      sortOrderName: "Nearly Sorted",
-      getColumnsFunction: getNearlySortedColumns,
+      key: "nearlySorted",
+      name: "Nearly Sorted",
+      getColumnsFunction: useGetNearlySortedColumns,
       initialColumns: nearlySortedColumns,
     },
     {
-      sortOrderName: "Few Unique",
-      getColumnsFunction: getFewUniqueColumns,
+      key: "fewUnique",
+      name: "Few Unique",
+      getColumnsFunction: useGetFewUniqueColumns,
       initialColumns: fewUniqueColumns,
     },
   ];
+
   const algorithms = [
-    { algorithmName: "Selection", sortFunction: selectionSort },
-    { algorithmName: "Insertion", sortFunction: insertionSort },
-    { algorithmName: "Bubble", sortFunction: bubbleSort },
-    { algorithmName: "Heap", sortFunction: heapSort },
+    { name: "Selection", sortFunction: selectionSort },
+    { name: "Insertion", sortFunction: insertionSort },
+    { name: "Bubble", sortFunction: bubbleSort },
+    { name: "Heap", sortFunction: heapSort },
   ];
   return (
-    <>
-      <div className="board-table">
-        {sortOrders.map((sortOrder) => (
-          <div key={sortOrder.sortOrderName} className="board-columns">
-            {algorithms.map((algorithm) => (
-              <Board
-                onResetClick={onResetClick}
-                key={algorithm.algorithmName}
-                algorithmName={algorithm.algorithmName}
-                sortOrderName={sortOrder.sortOrderName}
-                getColumnsFunction={sortOrder.getColumnsFunction}
-                onSolveClick={onOneBoardSolveClick}
-                sortFunction={algorithm.sortFunction}
-                initialColumns={sortOrder.initialColumns}
-              />
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          {sortOrders.map((sortOrder) => (
+            <th>{sortOrder.name}</th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {algorithms.map((algorithm) => (
+          <tr key={algorithm.name}>
+            <th>{algorithm.name}</th>
+            {sortOrders.map((sortOrder) => (
+              <td>
+                <Board
+                  handleBoardReset={handleBoardReset}
+                  key={`${algorithm.name}:${sortOrder.key}`}
+                  algorithmName={algorithm.name}
+                  sortOrderName={sortOrder.name}
+                  sortOrderKey={sortOrder.key}
+                  handleBoardSolve={handleBoardSolve}
+                  sortFunction={algorithm.sortFunction}
+                  initialColumns={sortOrder.initialColumns}
+                />
+              </td>
             ))}
-          </div>
+          </tr>
         ))}
-      </div>
-    </>
+        {/* {sortOrders.map((sortOrder) => (
+          <>
+            <tr key={sortOrder.name}>
+              {algorithms.map((algorithm) => (
+                <td>
+                  <Board
+                    handleBoardReset={handleBoardReset}
+                    key={`${algorithm.name}:${sortOrder.key}`}
+                    algorithmName={algorithm.name}
+                    sortOrderName={sortOrder.name}
+                    sortOrderKey={sortOrder.key}
+                    handleBoardSolve={handleBoardSolve}
+                    sortFunction={algorithm.sortFunction}
+                    initialColumns={sortOrder.initialColumns}
+                  />
+                </td>
+              ))}
+            </tr>
+          </>
+        ))} */}
+      </tbody>
+    </table>
   );
+  // return (
+  //   <div style={{ display: "flex", flexDirection: "row" }}>
+  //     <div className="board-table">
+  //       {sortOrders.map((sortOrder) => (
+  //         <>
+  //           <div key={sortOrder.name} className="board-columns">
+  //             <h6 style={{ margin: 0 }}>{sortOrder.name}</h6>
+  //             {algorithms.map((algorithm) => (
+  //               <Board
+  //                 handleBoardReset={handleBoardReset}
+  //                 key={`${algorithm.name}:${sortOrder.key}`}
+  //                 algorithmName={algorithm.name}
+  //                 sortOrderName={sortOrder.name}
+  //                 sortOrderKey={sortOrder.key}
+  //                 handleBoardSolve={handleBoardSolve}
+  //                 sortFunction={algorithm.sortFunction}
+  //                 initialColumns={sortOrder.initialColumns}
+  //               />
+  //             ))}
+  //           </div>
+  //         </>
+  //       ))}
+  //     </div>
+  //   </div>
+  // );
 };
 
-export default SortingAlgorithmVisualizer2;
+export default SortingAlgorithmVisualizer;

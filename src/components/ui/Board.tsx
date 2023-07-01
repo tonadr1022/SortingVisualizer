@@ -1,9 +1,8 @@
-import Column from "../display/Column";
 import {
   board,
-  column,
-  onOneBoardSolveClickParams,
-  onResetClickParams,
+  Column,
+  HandleBoardResetParams,
+  HandleBoardSolveParams,
   sortingAlgorithmParams,
 } from "../../interfaces/interfaces";
 import { useContext, useEffect, useState } from "react";
@@ -12,38 +11,33 @@ import {
   NumColumnsContext,
   ResetAllContext,
 } from "../../pages/HomePage";
+import ColumnComponent from "../display/ColumnComponent";
 
 interface BoardProps {
   algorithmName: string;
-  initialColumns: column[];
+  initialColumns: Column[];
   sortOrderName: string;
-  getColumnsFunction: (numColumns: number) => column[];
-  onResetClick: ({
+  sortOrderKey: string;
+  handleBoardReset: ({
     setBoard,
-    getColumnsFunction,
-    sortOrderName,
-  }: onResetClickParams) => void;
-  onSolveClick: ({
-    setBoard,
-    getColumnsFunction,
-  }: onOneBoardSolveClickParams) => void;
+    sortOrderKey,
+  }: HandleBoardResetParams) => void;
+  handleBoardSolve: ({ setBoard }: HandleBoardSolveParams) => void;
   sortFunction: ({ board, setBoard }: sortingAlgorithmParams) => Promise<void>;
 }
 
 const Board = ({
-  onResetClick,
-  sortOrderName,
+  handleBoardReset,
   algorithmName,
-  getColumnsFunction,
+  sortOrderKey,
   initialColumns,
-  onSolveClick,
+  handleBoardSolve,
   sortFunction,
 }: BoardProps) => {
   const [board, setBoard] = useState<board>({
     columns: initialColumns,
     algorithm: algorithmName,
   });
-  console.log(board);
 
   const isSolveAll = useContext(IsSolveAllContext);
   const resetAll = useContext(ResetAllContext);
@@ -51,11 +45,10 @@ const Board = ({
 
   useEffect(() => {
     if (isSolveAll) {
-      onSolveClick({
+      handleBoardSolve({
         setBoard,
         sortFunction,
-        getColumnsFunction,
-        sortOrderName: sortOrderName,
+        sortOrderKey,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -63,10 +56,9 @@ const Board = ({
 
   useEffect(() => {
     if (resetAll || numColumns > 0) {
-      onResetClick({
+      handleBoardReset({
         setBoard,
-        getColumnsFunction,
-        sortOrderName: sortOrderName,
+        sortOrderKey,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -74,19 +66,17 @@ const Board = ({
 
   return (
     <div className="board">
-      <h6 style={{ margin: 0 }}>{algorithmName}</h6>
       <div
         className="board-columns-container"
         onClick={() =>
-          onSolveClick({
+          handleBoardSolve({
             setBoard,
             sortFunction,
-            getColumnsFunction,
-            sortOrderName,
+            sortOrderKey,
           })
         }>
         {board.columns.map((column, i) => (
-          <Column key={i} column={column} />
+          <ColumnComponent key={i} column={column} />
         ))}
       </div>
     </div>

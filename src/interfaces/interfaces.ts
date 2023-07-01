@@ -1,8 +1,8 @@
 export interface board {
-  columns: column[];
+  columns: Column[];
   algorithm: string;
 }
-export interface column {
+export interface Column {
   value: number;
   isFinalOrder: boolean;
   isCurrentElement: boolean;
@@ -14,14 +14,19 @@ export interface sortingAlgorithmParams {
   setBoard: React.Dispatch<React.SetStateAction<board>>;
 }
 
-export interface onOneBoardSolveClickParams {
-  getColumnsFunction: (numColumns: number) => column[];
+export interface HandleBoardSolveParams {
   sortFunction: ({ board, setBoard }: sortingAlgorithmParams) => Promise<void>;
   setBoard: (value: React.SetStateAction<board>) => void;
-  sortOrderName: string;
+  sortOrderKey: string;
 }
-export interface onResetClickParams {
+export interface HandleBoardResetParams {
   setBoard: (value: React.SetStateAction<board>) => void;
-  getColumnsFunction: (numColumns: number) => column[];
-  sortOrderName: string;
+  sortOrderKey: string;
+}
+
+export interface InitialColumns {
+  randomColumns: Column[];
+  reversedColumns: Column[];
+  nearlySortedColumns: Column[];
+  fewUniqueColumns: Column[];
 }

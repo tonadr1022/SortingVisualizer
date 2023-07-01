@@ -1,8 +1,11 @@
-import { board, column } from "../interfaces/interfaces";
+import { useContext } from "react";
+import { Column } from "../interfaces/interfaces";
 import { swap } from "../sortingAlgorithms.ts/sortingUtils";
+import { NumColumnsContext } from "../pages/HomePage";
 
-export const getRandomColumns = (numColumns: number): column[] => {
-  const initialColumns: column[] = [];
+export const useGetRandomColumns = (): Column[] => {
+  const numColumns = useContext(NumColumnsContext);
+  const initialColumns: Column[] = [];
   for (let i = 0; i < numColumns; i++) {
     initialColumns.push({
       value: Math.floor(Math.random() * 30),
@@ -14,8 +17,10 @@ export const getRandomColumns = (numColumns: number): column[] => {
   }
   return initialColumns;
 };
-export const getReverseColumns = (numColumns: number): column[] => {
-  const initialColumns: column[] = [];
+
+export const useGetReverseColumns = (): Column[] => {
+  const numColumns = useContext(NumColumnsContext);
+  const initialColumns: Column[] = [];
   for (let i = numColumns; i > 0; i--) {
     initialColumns.push({
       value: i,
@@ -27,8 +32,10 @@ export const getReverseColumns = (numColumns: number): column[] => {
   }
   return initialColumns;
 };
-export const getNearlySortedColumns = (numColumns: number): column[] => {
-  const initialColumns: column[] = [];
+
+export const useGetNearlySortedColumns = (): Column[] => {
+  const numColumns = useContext(NumColumnsContext);
+  const initialColumns: Column[] = [];
   for (let i = 0; i < numColumns; i++) {
     initialColumns.push({
       value: i,
@@ -38,7 +45,7 @@ export const getNearlySortedColumns = (numColumns: number): column[] => {
       isComparedToElement: false,
     });
   }
-  const numColumnsToSwap = Math.floor(numColumns / 10);
+  const numColumnsToSwap = Math.floor(numColumns / 8);
   for (let i = 0; i < numColumnsToSwap; i++) {
     const indexOne = Math.floor(Math.random() * numColumns);
     const indexTwo = Math.floor(Math.random() * numColumns);
@@ -48,11 +55,12 @@ export const getNearlySortedColumns = (numColumns: number): column[] => {
 };
 
 const NUM_UNIQUE_COLUMNS = 5;
-export const getFewUniqueColumns = (numColumns: number): column[] => {
-  const initialColumns: column[] = [];
+export const useGetFewUniqueColumns = (): Column[] => {
+  const numColumns = useContext(NumColumnsContext);
+  const initialColumns: Column[] = [];
   const values = [];
-  for (let i = 0; i < NUM_UNIQUE_COLUMNS; i++) {
-    values.push(Math.floor(Math.random() * numColumns));
+  for (let i = 1; i <= NUM_UNIQUE_COLUMNS; i++) {
+    values.push(Math.floor((i / 5) * numColumns));
   }
   for (let i = 0; i < numColumns; i++) {
     const value = values[Math.floor(Math.random() * NUM_UNIQUE_COLUMNS)];
@@ -65,17 +73,4 @@ export const getFewUniqueColumns = (numColumns: number): column[] => {
     });
   }
   return initialColumns;
-};
-
-export const getInitialBoard = (
-  board: board,
-  initialColumnsFunction: (numColumns: number) => column[],
-  numColumns: number
-) => {
-  const initialColumns = initialColumnsFunction(numColumns);
-  const initialBoard: board = {
-    ...board,
-    columns: initialColumns,
-  };
-  return initialBoard;
 };

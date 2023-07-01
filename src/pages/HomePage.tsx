@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import SortingAlgorithmVisualizer2 from "../components/SortingAlgorithmVisualizer";
+import SortingAlgorithmVisualizer from "../components/SortingAlgorithmVisualizer";
 
 export const IsSolveAllContext = createContext(false);
 export const ResetAllContext = createContext(false);
@@ -43,7 +43,7 @@ const HomePage = () => {
       <IsSolveAllContext.Provider value={isSolveAll}>
         <ResetAllContext.Provider value={resetAll}>
           <NumColumnsContext.Provider value={numColumns}>
-            <SortingAlgorithmVisualizer2 />
+            <SortingAlgorithmVisualizer />
           </NumColumnsContext.Provider>
         </ResetAllContext.Provider>
       </IsSolveAllContext.Provider>

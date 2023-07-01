@@ -16,7 +16,6 @@ const selectionSort = async ({
       if (columns[j].value < columns[currMinIndex].value) {
         currMinIndex = j;
       }
-      console.log("sele");
 
       // update current element and rerender board
       columns[j].isCurrentElement = true;

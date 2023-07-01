@@ -1,10 +1,10 @@
 import "../../app.css";
-import { column } from "../../interfaces/interfaces";
+import { Column } from "../../interfaces/interfaces";
 interface props {
-  column: column;
+  column: Column;
 }
 
-const Column = ({ column }: props) => {
+const ColumnComponent = ({ column }: props) => {
   const height = column.value * 5;
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
@@ -38,4 +38,4 @@ const Column = ({ column }: props) => {
   );
 };
 
-export default Column;
+export default ColumnComponent;
