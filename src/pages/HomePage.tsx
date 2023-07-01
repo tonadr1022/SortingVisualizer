@@ -3,11 +3,11 @@ import SortingAlgorithmVisualizer2 from "../components/SortingAlgorithmVisualize
 
 export const IsSolveAllContext = createContext(false);
 export const ResetAllContext = createContext(false);
-export const NumColumnsContext = createContext(30);
+export const NumColumnsContext = createContext(10);
 const HomePage = () => {
   const [isSolveAll, setIsSolveAll] = useState(false);
   const [resetAll, setResetAll] = useState(false);
-  const [numColumns, setNumColumns] = useState(30);
+  const [numColumns, setNumColumns] = useState(10);
 
   const onSolveAllClick = (): void => {
     setIsSolveAll((prev) => !prev);

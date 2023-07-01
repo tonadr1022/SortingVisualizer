@@ -9,41 +9,7 @@ import { swap } from "./sortingUtils";
  * @param board
  * @param setBoard
  */
-// const bubbleSort = async ({
-//   board,
-//   setBoard,
-// }: sortingAlgorithmParams): Promise<void> => {
-//   const { columns } = board;
-//   for (let i = 0; i < columns.length; i++) {
-//     let swapped = false;
-
-//     for (let j = 0; j < columns.length - i - 1; j++) {
-//       // set current element and wait
-//       // if value at curr is less than curr-1, swap
-//       if (columns[j].value > columns[j + 1].value) {
-//         swap(columns, j, j + 1);
-//         swapped = true;
-//       }
-//       await pause();
-//       // element at j is no longer the current element
-//       console.log("bbbl");
-//     }
-
-//     // after ith column in position, update its state
-//     // columns[i].isCurrentElement = false;
-//     // if (!swapped) {
-//     //   setBoard((prevBoard) => ({
-//     //     ...prevBoard,
-//     //     columns: columns.map((col) => ({ ...col, isFinalOrder: true })),
-//     //   }));
-//     //   break;
-//     // }
-//   }
-// };
-
-// export default bubbleSort;
 const bubbleSort = async ({
-  isCancel,
   board,
   setBoard,
 }: sortingAlgorithmParams): Promise<void> => {
@@ -53,8 +19,6 @@ const bubbleSort = async ({
     let swapped = false;
 
     for (let j = 0; j < columns.length - i - 1; j++) {
-      console.log(isCancel);
-      if (isCancel) return;
       // set current element and wait
       columns[j].isCurrentElement = true;
       setBoard((prevBoard) => ({ ...prevBoard }));

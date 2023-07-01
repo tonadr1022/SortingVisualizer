@@ -1,6 +1,6 @@
 .board-column {
   background-color: rgb(255, 127, 127);
-  width: 8px;
+  width: 6px;
 }
 
 .board-table {
@@ -11,7 +11,7 @@
 .board-columns-container {
   display: flex;
   flex-direction: row;
-  height: 200px;
+  height: 100px;
 }
 
 .board {

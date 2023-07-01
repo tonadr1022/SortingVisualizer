@@ -24,7 +24,7 @@ const Column = ({ column }: props) => {
           marginLeft: 2,
           marginRight: 2,
           marginBottom: 0,
-          height: height,
+          height: height * 0.5,
           backgroundColor: column.isFinalOrder
             ? "#a400f6"
             : column.isCurrentElement

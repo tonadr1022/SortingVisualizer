@@ -3,21 +3,26 @@ import {
   board,
   column,
   onOneBoardSolveClickParams,
+  onResetClickParams,
   sortingAlgorithmParams,
 } from "../../interfaces/interfaces";
 import { useContext, useEffect, useState } from "react";
-import { getInitialBoard } from "../../utils/getInitialBoard";
 import {
   IsSolveAllContext,
   NumColumnsContext,
   ResetAllContext,
 } from "../../pages/HomePage";
 
-interface props {
+interface BoardProps {
   algorithmName: string;
   initialColumns: column[];
-  sortOrder: string;
+  sortOrderName: string;
   getColumnsFunction: (numColumns: number) => column[];
+  onResetClick: ({
+    setBoard,
+    getColumnsFunction,
+    sortOrderName,
+  }: onResetClickParams) => void;
   onSolveClick: ({
     setBoard,
     getColumnsFunction,
@@ -25,18 +30,20 @@ interface props {
   sortFunction: ({ board, setBoard }: sortingAlgorithmParams) => Promise<void>;
 }
 
-const Board2 = ({
+const Board = ({
+  onResetClick,
+  sortOrderName,
   algorithmName,
   getColumnsFunction,
   initialColumns,
   onSolveClick,
   sortFunction,
-}: props) => {
+}: BoardProps) => {
   const [board, setBoard] = useState<board>({
     columns: initialColumns,
     algorithm: algorithmName,
-    isSorting: false,
   });
+  console.log(board);
 
   const isSolveAll = useContext(IsSolveAllContext);
   const resetAll = useContext(ResetAllContext);
@@ -48,16 +55,21 @@ const Board2 = ({
         setBoard,
         sortFunction,
         getColumnsFunction,
+        sortOrderName: sortOrderName,
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSolveAll]);
 
   useEffect(() => {
     if (resetAll || numColumns > 0) {
-      setBoard((prevBoard) =>
-        getInitialBoard(prevBoard, getColumnsFunction, numColumns)
-      );
+      onResetClick({
+        setBoard,
+        getColumnsFunction,
+        sortOrderName: sortOrderName,
+      });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [resetAll, numColumns]);
 
   return (
@@ -70,6 +82,7 @@ const Board2 = ({
             setBoard,
             sortFunction,
             getColumnsFunction,
+            sortOrderName,
           })
         }>
         {board.columns.map((column, i) => (
@@ -80,4 +93,4 @@ const Board2 = ({
   );
 };
 
-export default Board2;
+export default Board;
