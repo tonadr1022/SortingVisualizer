@@ -1,14 +1,14 @@
 import { createContext, useState } from "react";
-import SortingAlgorithmVisualizer2 from "./SortingAlgorithmVisualizer2";
+import SortingAlgorithmVisualizer2 from "../components/SortingAlgorithmVisualizer";
 
 export const IsSolveAllContext = createContext(false);
 export const ResetAllContext = createContext(false);
 export const NumColumnsContext = createContext(30);
-
 const HomePage = () => {
   const [isSolveAll, setIsSolveAll] = useState(false);
   const [resetAll, setResetAll] = useState(false);
   const [numColumns, setNumColumns] = useState(30);
+
   const onSolveAllClick = (): void => {
     setIsSolveAll((prev) => !prev);
 
@@ -20,7 +20,6 @@ const HomePage = () => {
 
   const onResetAllClick = (): void => {
     setResetAll((prev) => !prev);
-
     // Delay turning off the solve all toggle
     setTimeout(() => {
       setResetAll(false);
@@ -35,7 +34,7 @@ const HomePage = () => {
   return (
     <>
       <button onClick={onSolveAllClick}>Solve All</button>
-      <button onClick={onResetAllClick}>Reset</button>{" "}
+      <button onClick={onResetAllClick}>Reset</button>
       <input
         type="range"
         id="column-count"

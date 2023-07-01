@@ -1,8 +1,7 @@
 export interface board {
   columns: column[];
-  isSorted: boolean;
-  isSorting: boolean;
   algorithm: string;
+  isSorting: boolean;
 }
 export interface column {
   value: number;
@@ -17,7 +16,6 @@ export interface sortingAlgorithmParams {
 }
 
 export interface onOneBoardSolveClickParams {
-  board: board;
   getColumnsFunction: (numColumns: number) => column[];
   sortFunction: ({ board, setBoard }: sortingAlgorithmParams) => Promise<void>;
   setBoard: (value: React.SetStateAction<board>) => void;

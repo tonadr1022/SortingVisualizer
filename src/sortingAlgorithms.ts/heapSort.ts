@@ -1,4 +1,4 @@
-import { pause } from "../components/utils";
+import { pause } from "../utils/utils";
 import { sortingAlgorithmParams } from "../interfaces/interfaces";
 import { swap } from "./sortingUtils";
 

@@ -1,4 +1,4 @@
-import { pause } from "../components/utils";
+import { pause } from "../utils/utils";
 import { sortingAlgorithmParams } from "../interfaces/interfaces";
 import { swap } from "./sortingUtils";
 
@@ -6,10 +6,7 @@ const insertionSort = async ({
   board,
   setBoard,
 }: sortingAlgorithmParams): Promise<void> => {
-  const { columns, isSorting } = board;
-  // if (isSorting) return;
-  // if (!isSorting) board.isSorting = true;
-  // setBoard((prevBoard) => ({ ...prevBoard }));
+  const { columns } = board;
   // pointers for sorted part of array
 
   // grab first unsorted element
@@ -36,12 +33,6 @@ const insertionSort = async ({
     columns[j].isFinalOrder = true;
     setBoard((prevBoard) => ({ ...prevBoard }));
   }
-  // set board to sorted
-  setBoard((prevBoard) => ({
-    ...prevBoard,
-    isSorted: true,
-    isSorting: false,
-  }));
 };
 
 export default insertionSort;

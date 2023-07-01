@@ -46,33 +46,10 @@ export const getInitialBoard = (
   numColumns: number
 ) => {
   const initialColumns = initialColumnsFunction(numColumns);
-  const initialBoard = {
+  const initialBoard: board = {
     ...board,
     columns: initialColumns,
-    isSorted: false,
-    isSorting: false,
-  };
-  return initialBoard;
-};
-
-export const getRandomBoard = (board: board, numColumns: number): board => {
-  const initialColumns = getRandomColumns(numColumns);
-  const initialBoard = {
-    ...board,
-    columns: initialColumns,
-    isSorted: false,
-    isSorting: false,
-  };
-  return initialBoard;
-};
-
-export const getReverseBoard = (board: board, numColumns: number): board => {
-  const initialColumns = getRandomColumns(numColumns);
-  const initialBoard = {
-    ...board,
-    columns: initialColumns,
-    isSorted: false,
-    isSorting: false,
+    isSorting: true,
   };
   return initialBoard;
 };

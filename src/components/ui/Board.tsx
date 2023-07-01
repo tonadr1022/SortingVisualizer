@@ -1,4 +1,4 @@
-import Column from "./Column";
+import Column from "../display/Column";
 import {
   board,
   column,
@@ -6,12 +6,12 @@ import {
   sortingAlgorithmParams,
 } from "../../interfaces/interfaces";
 import { useContext, useEffect, useState } from "react";
-import { getInitialBoard } from "../../sortingAlgorithms.ts/getInitialBoard";
+import { getInitialBoard } from "../../utils/getInitialBoard";
 import {
   IsSolveAllContext,
   NumColumnsContext,
   ResetAllContext,
-} from "../HomePage";
+} from "../../pages/HomePage";
 
 interface props {
   algorithmName: string;
@@ -19,7 +19,6 @@ interface props {
   sortOrder: string;
   getColumnsFunction: (numColumns: number) => column[];
   onSolveClick: ({
-    board,
     setBoard,
     getColumnsFunction,
   }: onOneBoardSolveClickParams) => void;
@@ -35,9 +34,8 @@ const Board2 = ({
 }: props) => {
   const [board, setBoard] = useState<board>({
     columns: initialColumns,
-    isSorted: false,
-    isSorting: false,
     algorithm: algorithmName,
+    isSorting: false,
   });
 
   const isSolveAll = useContext(IsSolveAllContext);
@@ -47,7 +45,6 @@ const Board2 = ({
   useEffect(() => {
     if (isSolveAll) {
       onSolveClick({
-        board,
         setBoard,
         sortFunction,
         getColumnsFunction,
@@ -58,7 +55,7 @@ const Board2 = ({
   useEffect(() => {
     if (resetAll || numColumns > 0) {
       setBoard((prevBoard) =>
-        getInitialBoard(board, getColumnsFunction, numColumns)
+        getInitialBoard(prevBoard, getColumnsFunction, numColumns)
       );
     }
   }, [resetAll, numColumns]);
@@ -70,7 +67,6 @@ const Board2 = ({
         className="board-columns-container"
         onClick={() =>
           onSolveClick({
-            board,
             setBoard,
             sortFunction,
             getColumnsFunction,
