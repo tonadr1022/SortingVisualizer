@@ -1,37 +1,31 @@
 import {
   board,
   Column,
-  HandleBoardResetParams,
-  HandleBoardSolveParams,
   sortingAlgorithmParams,
 } from "../../interfaces/interfaces";
 import { useContext, useEffect, useState } from "react";
+
+import ColumnComponent from "../display/ColumnComponent";
 import {
   IsSolveAllContext,
-  NumColumnsContext,
   ResetAllContext,
-} from "../../pages/HomePage";
-import ColumnComponent from "../display/ColumnComponent";
+  NumColumnsContext,
+} from "../../App";
+import useBoardReset from "../../hooks/useBoardReset";
+import useBoardSolve from "../../hooks/useBoardSolve";
 
 interface BoardProps {
   algorithmName: string;
   initialColumns: Column[];
   sortOrderName: string;
   sortOrderKey: string;
-  handleBoardReset: ({
-    setBoard,
-    sortOrderKey,
-  }: HandleBoardResetParams) => void;
-  handleBoardSolve: ({ setBoard }: HandleBoardSolveParams) => void;
   sortFunction: ({ board, setBoard }: sortingAlgorithmParams) => Promise<void>;
 }
 
 const Board = ({
-  handleBoardReset,
   algorithmName,
   sortOrderKey,
   initialColumns,
-  handleBoardSolve,
   sortFunction,
 }: BoardProps) => {
   const [board, setBoard] = useState<board>({
@@ -42,39 +36,30 @@ const Board = ({
   const isSolveAll = useContext(IsSolveAllContext);
   const resetAll = useContext(ResetAllContext);
   const numColumns = useContext(NumColumnsContext);
+  const handleBoardSolve = useBoardSolve({
+    setBoard,
+    sortFunction,
+    sortOrderKey,
+  });
+  const handleBoardReset = useBoardReset({ setBoard, sortOrderKey });
 
   useEffect(() => {
     if (isSolveAll) {
-      handleBoardSolve({
-        setBoard,
-        sortFunction,
-        sortOrderKey,
-      });
+      handleBoardSolve();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSolveAll]);
 
   useEffect(() => {
     if (resetAll || numColumns > 0) {
-      handleBoardReset({
-        setBoard,
-        sortOrderKey,
-      });
+      handleBoardReset();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [resetAll, numColumns]);
 
   return (
     <div className="board">
-      <div
-        className="board-columns-container"
-        onClick={() =>
-          handleBoardSolve({
-            setBoard,
-            sortFunction,
-            sortOrderKey,
-          })
-        }>
+      <div className="board-columns-container" onClick={handleBoardSolve}>
         {board.columns.map((column, i) => (
           <ColumnComponent key={i} column={column} />
         ))}

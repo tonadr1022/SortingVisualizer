@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Column } from "../interfaces/interfaces";
 import { swap } from "../sortingAlgorithms.ts/sortingUtils";
-import { NumColumnsContext } from "../pages/HomePage";
+import { NumColumnsContext } from "../App";
 
 export const useGetRandomColumns = (): Column[] => {
   const numColumns = useContext(NumColumnsContext);

@@ -30,3 +30,15 @@ export interface InitialColumns {
   nearlySortedColumns: Column[];
   fewUniqueColumns: Column[];
 }
+
+export interface Algorithm {
+  key: string;
+  name: string;
+  sortFunction: ({ board, setBoard }: sortingAlgorithmParams) => Promise<void>;
+}
+
+export interface OptionsProps {
+  onSolveAllClick: () => void;
+  onResetAllClick: () => void;
+  onNumColumnsChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}

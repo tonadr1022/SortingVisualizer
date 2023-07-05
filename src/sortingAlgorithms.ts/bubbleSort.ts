@@ -21,7 +21,10 @@ const bubbleSort = async ({
     for (let j = 0; j < columns.length - i - 1; j++) {
       // set current element and wait
       columns[j].isCurrentElement = true;
-      setBoard((prevBoard) => ({ ...prevBoard }));
+      setBoard((prevBoard) => ({
+        ...prevBoard,
+        columns: JSON.parse(JSON.stringify(columns)),
+      }));
       await pause();
       // if value at curr is less than curr-1, swap
       if (columns[j].value > columns[j + 1].value) {
@@ -30,14 +33,19 @@ const bubbleSort = async ({
       }
       // element at j is no longer the current element
       columns[j].isCurrentElement = false;
-      // setBoard((prevBoard) => ({ ...prevBoard }));
+      setBoard((prevBoard) => ({
+        ...prevBoard,
+        columns: JSON.parse(JSON.stringify(columns)),
+      }));
     }
 
     // after ith column in position, update its state
-    // columns[i].isCurrentElement = false;
     columns[columns.length - i - 1].isFinalOrder = true;
     columns[columns.length - i - 1].isCurrentElement = false;
-    setBoard((prevBoard) => ({ ...prevBoard }));
+    setBoard((prevBoard) => ({
+      ...prevBoard,
+      columns: JSON.parse(JSON.stringify(columns)),
+    }));
     if (!swapped) {
       setBoard((prevBoard) => ({
         ...prevBoard,
