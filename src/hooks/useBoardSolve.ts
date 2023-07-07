@@ -1,13 +1,20 @@
-import { useContext } from "react";
 import { Column, HandleBoardSolveParams } from "../interfaces/interfaces";
-import { InitialColumnsContext } from "../App";
+import { useGetSortOrders } from "../components/sortOrders";
 
 const useBoardSolve = ({
   setBoard,
   sortFunction,
   sortOrderKey,
 }: HandleBoardSolveParams) => {
-  const sortOrderColumns = useContext(InitialColumnsContext);
+  const sortOrders = useGetSortOrders();
+  const { random, reversed, nearlySorted, fewUnique } = sortOrders;
+
+  const sortOrderColumns: { [key: string]: Column[] } = {
+    random: random.initialColumns,
+    reversed: reversed.initialColumns,
+    nearlySorted: nearlySorted.initialColumns,
+    fewUnique: fewUnique.initialColumns,
+  };
   const columns: Column[] = sortOrderColumns[sortOrderKey];
 
   const handleBoardSolve = () => {
