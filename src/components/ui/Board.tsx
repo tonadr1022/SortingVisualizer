@@ -33,9 +33,12 @@ const Board = ({
     algorithm: algorithmName,
   });
 
-  const isSolveAll = useContext(IsSolveAllContext);
+  const IsSolveAllContextValue = useContext(IsSolveAllContext);
+  const isSolveAll = IsSolveAllContextValue?.isSolveAll;
+
   const resetAll = useContext(ResetAllContext);
   const numColumns = useContext(NumColumnsContext);
+
   const handleBoardSolve = useBoardSolve({
     setBoard,
     sortFunction,

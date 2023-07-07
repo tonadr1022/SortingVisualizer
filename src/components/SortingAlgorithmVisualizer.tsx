@@ -1,11 +1,10 @@
 import { algorithms } from "./algorithms";
 import Board from "./ui/Board";
 import { useGetSortOrders } from "./sortOrders";
-import { Link } from "react-router-dom";
 
 const SortingAlgorithmVisualizer = () => {
   const sortOrders = useGetSortOrders();
-
+  console.log("sort page render");
   return (
     <table>
       <thead>
@@ -19,9 +18,13 @@ const SortingAlgorithmVisualizer = () => {
       <tbody>
         {Object.values(algorithms).map((algorithm) => (
           <tr key={algorithm.name}>
-            <Link to={`/algorithms/${algorithm.key}-sort`}>
-              <th>{algorithm.name}</th>
-            </Link>
+            <th
+              onClick={() =>
+                (window.location.href = `/algorithms/${algorithm.key}-sort`)
+              }>
+              {algorithm.name}
+            </th>
+
             {Object.values(sortOrders).map((sortOrder) => (
               <td key={`${algorithm.name}:${sortOrder.key}`}>
                 <Board

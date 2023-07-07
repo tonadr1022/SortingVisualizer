@@ -14,7 +14,7 @@ const bubbleSort = async ({
   setBoard,
 }: sortingAlgorithmParams): Promise<void> => {
   const { columns } = board;
-
+  console.log("so");
   for (let i = 0; i < columns.length; i++) {
     let swapped = false;
 

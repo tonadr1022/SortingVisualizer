@@ -5,7 +5,6 @@ import { InitialColumnsContext } from "../App";
 const useBoardReset = ({ setBoard, sortOrderKey }: HandleBoardResetParams) => {
   const sortOrderColumns = useContext(InitialColumnsContext);
   const columns: Column[] = sortOrderColumns[sortOrderKey];
-
   const handleBoardReset = () => {
     setBoard((prevBoard) => ({
       ...prevBoard,

@@ -7,7 +7,6 @@ const selectionSort = async ({
   setBoard,
 }: sortingAlgorithmParams): Promise<void> => {
   const { columns } = board;
-
   // iterate through array from zero. For each iteration, find min remaining and swap with val at i if it is less than
   for (let i = 0; i < columns.length; i++) {
     // find the min remaining element

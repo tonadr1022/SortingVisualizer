@@ -4,6 +4,7 @@ import { swap } from "../sortingAlgorithms.ts/sortingUtils";
 import { NumColumnsContext } from "../App";
 
 export const useGetRandomColumns = (): Column[] => {
+  console.log("get rand");
   const numColumns = useContext(NumColumnsContext);
   const initialColumns: Column[] = [];
   for (let i = 0; i < numColumns; i++) {

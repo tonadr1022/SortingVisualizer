@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import { useGetSortOrders } from "../components/sortOrders";
 import { Column, HandleBoardSolveParams } from "../interfaces/interfaces";
 import { InitialColumnsContext } from "../App";
 

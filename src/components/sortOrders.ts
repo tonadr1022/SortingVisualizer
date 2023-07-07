@@ -6,6 +6,7 @@ import {
 } from "../utils/getInitialColumns";
 
 export const useGetSortOrders = () => {
+  console.log("in get sort orders");
   const randomColumns = useGetRandomColumns();
   const reversedColumns = useGetReverseColumns();
   const nearlySortedColumns = useGetNearlySortedColumns();
