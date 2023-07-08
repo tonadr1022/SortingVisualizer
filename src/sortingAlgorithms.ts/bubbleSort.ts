@@ -12,9 +12,11 @@ import { swap } from "./sortingUtils";
 const bubbleSort = async ({
   board,
   setBoard,
+  numColumns,
+  speedMultiplier,
 }: sortingAlgorithmParams): Promise<void> => {
   const { columns } = board;
-  console.log("so");
+
   for (let i = 0; i < columns.length; i++) {
     let swapped = false;
 
@@ -23,9 +25,8 @@ const bubbleSort = async ({
       columns[j].isCurrentElement = true;
       setBoard((prevBoard) => ({
         ...prevBoard,
-        columns: JSON.parse(JSON.stringify(columns)),
       }));
-      await pause();
+      await pause({ numColumns, speedMultiplier });
       // if value at curr is less than curr-1, swap
       if (columns[j].value > columns[j + 1].value) {
         swap(columns, j, j + 1);
@@ -35,7 +36,6 @@ const bubbleSort = async ({
       columns[j].isCurrentElement = false;
       setBoard((prevBoard) => ({
         ...prevBoard,
-        columns: JSON.parse(JSON.stringify(columns)),
       }));
     }
 
@@ -44,12 +44,10 @@ const bubbleSort = async ({
     columns[columns.length - i - 1].isCurrentElement = false;
     setBoard((prevBoard) => ({
       ...prevBoard,
-      columns: JSON.parse(JSON.stringify(columns)),
     }));
     if (!swapped) {
       setBoard((prevBoard) => ({
         ...prevBoard,
-        isSorting: false,
         columns: columns.map((col) => ({ ...col, isFinalOrder: true })),
       }));
       break;

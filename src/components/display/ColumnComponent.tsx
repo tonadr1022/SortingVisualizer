@@ -1,40 +1,50 @@
+import { useContext } from "react";
 import "../../app.css";
 import { Column } from "../../interfaces/interfaces";
+import { NumColumnsContext } from "../../App";
 interface props {
   column: Column;
 }
 
 const ColumnComponent = ({ column }: props) => {
-  const height = column.value * 5;
+  const { numColumns } = useContext(NumColumnsContext);
+  const height = (column.value / numColumns) * 90;
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    numColumns && (
       <div
         style={{
-          height: 0,
-          width: 0,
-          marginLeft: "2px",
-          borderLeft: "4px solid transparent",
-          borderRight: "4px solid transparent",
-          borderTop: column.isCurrentElement
-            ? "8px solid #ffffff"
-            : "8px solid transparent",
-        }}></div>
-      <div
-        style={{
-          marginLeft: 2,
-          marginRight: 2,
-          marginBottom: 0,
-          height: height * 0.5,
-          backgroundColor: column.isFinalOrder
-            ? "#a400f6"
-            : column.isCurrentElement
-            ? "#fff700"
-            : column.isComparedToElement
-            ? "#00c1fc"
-            : "#00da2c",
-        }}
-        className="board-column"></div>
-    </div>
+          width: "100%",
+          margin: "0.5px",
+          display: "flex",
+          flexDirection: "column",
+        }}>
+        <div
+          style={{
+            height: height,
+            width: "100%",
+            //   transition: "0.25s",
+            marginTop: "auto",
+            backgroundColor: column.isFinalOrder
+              ? "#a400f6"
+              : column.isCurrentElement
+              ? "#fff700"
+              : column.isComparedToElement
+              ? "#00c1fc"
+              : "#00da2c",
+          }}></div>
+        <div
+          style={{
+            width: "100%",
+            height: "8px",
+            backgroundImage: column.isCurrentElement
+              ? "linear-gradient(to bottom right, transparent 50%, rgb(255, 255, 255) 0), linear-gradient(to top right, rgb(255, 255, 255) 50%, transparent 0)"
+              : undefined,
+            backgroundSize: "calc(50% + 0.5px) 100%, calc(50% + 0.5px) 100%",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "left, right",
+          }}></div>
+      </div>
+    )
   );
 };
 

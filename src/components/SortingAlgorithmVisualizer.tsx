@@ -1,17 +1,27 @@
 import { algorithms } from "./algorithms";
 import Board from "./ui/Board";
 import { useGetSortOrders } from "./sortOrders";
+import { useNavigate } from "react-router";
 
 const SortingAlgorithmVisualizer = () => {
   const sortOrders = useGetSortOrders();
-  console.log("sort page render");
+  const navigate = useNavigate();
   return (
     <table>
       <thead>
         <tr>
           <th></th>
           {Object.values(sortOrders).map((sortOrder) => (
-            <th key={sortOrder.name}>{sortOrder.name}</th>
+            <th
+              className="main-table-th"
+              style={{ padding: 0, whiteSpace: "normal" }}
+              key={sortOrder.name}
+              onClick={(e) => {
+                e.preventDefault();
+                navigate(`/sorts/${sortOrder.key}`);
+              }}>
+              {sortOrder.name}
+            </th>
           ))}
         </tr>
       </thead>
@@ -19,14 +29,18 @@ const SortingAlgorithmVisualizer = () => {
         {Object.values(algorithms).map((algorithm) => (
           <tr key={algorithm.name}>
             <th
-              onClick={() =>
-                (window.location.href = `/algorithms/${algorithm.key}-sort`)
-              }>
+              className="main-table-th"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate(`/algorithms/${algorithm.key}-sort`);
+              }}>
               {algorithm.name}
             </th>
 
             {Object.values(sortOrders).map((sortOrder) => (
-              <td key={`${algorithm.name}:${sortOrder.key}`}>
+              <td
+                className="main-table-td"
+                key={`${algorithm.name}:${sortOrder.key}`}>
                 <Board
                   algorithmName={algorithm.name}
                   sortOrderName={sortOrder.name}

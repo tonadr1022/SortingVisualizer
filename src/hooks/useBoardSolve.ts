@@ -1,5 +1,7 @@
 import { Column, HandleBoardSolveParams } from "../interfaces/interfaces";
 import { useGetSortOrders } from "../components/sortOrders";
+import { useContext } from "react";
+import { NumColumnsContext, SpeedMultiplierContext } from "../App";
 
 const useBoardSolve = ({
   setBoard,
@@ -8,6 +10,8 @@ const useBoardSolve = ({
 }: HandleBoardSolveParams) => {
   const sortOrders = useGetSortOrders();
   const { random, reversed, nearlySorted, fewUnique } = sortOrders;
+  const { numColumns } = useContext(NumColumnsContext);
+  const { speedMultiplier } = useContext(SpeedMultiplierContext);
 
   const sortOrderColumns: { [key: string]: Column[] } = {
     random: random.initialColumns,
@@ -21,11 +25,13 @@ const useBoardSolve = ({
     setBoard((prevBoard) => {
       const updatedBoard = {
         ...prevBoard,
-        columns: JSON.parse(JSON.stringify(columns)),
+        columns: columns.slice(0),
       };
       sortFunction({
         board: updatedBoard,
         setBoard,
+        numColumns,
+        speedMultiplier,
       });
       return updatedBoard;
     });

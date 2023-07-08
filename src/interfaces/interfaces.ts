@@ -12,10 +12,17 @@ export interface Column {
 export interface sortingAlgorithmParams {
   board: board;
   setBoard: React.Dispatch<React.SetStateAction<board>>;
+  numColumns: number;
+  speedMultiplier: number;
 }
 
 export interface HandleBoardSolveParams {
-  sortFunction: ({ board, setBoard }: sortingAlgorithmParams) => Promise<void>;
+  sortFunction: ({
+    board,
+    setBoard,
+    numColumns,
+    speedMultiplier,
+  }: sortingAlgorithmParams) => Promise<void>;
   setBoard: (value: React.SetStateAction<board>) => void;
   sortOrderKey: string;
 }
@@ -34,11 +41,16 @@ export interface InitialColumns {
 export interface Algorithm {
   key: string;
   name: string;
-  sortFunction: ({ board, setBoard }: sortingAlgorithmParams) => Promise<void>;
+  sortFunction: ({
+    board,
+    setBoard,
+    numColumns,
+  }: sortingAlgorithmParams) => Promise<void>;
 }
 
-export interface OptionsProps {
-  onSolveAllClick: () => void;
-  onResetAllClick: () => void;
-  onNumColumnsChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+export interface SortOrder {
+  key: string;
+  name: string;
+  getColumnsFunction: () => Column[];
+  initialColumns: Column[];
 }

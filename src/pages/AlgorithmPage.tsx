@@ -1,16 +1,15 @@
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useGetSortOrders } from "../components/sortOrders";
-import { Algorithm, OptionsProps } from "../interfaces/interfaces";
+import { Algorithm } from "../interfaces/interfaces";
 import Options from "../components/ui/Options";
 import Board from "../components/ui/Board";
 import { algorithms } from "../components/algorithms";
+import HomeButton from "../components/ui/HomeButton";
 
-const AlgorithmPage = ({
-  onSolveAllClick,
-  onResetAllClick,
-  onNumColumnsChange,
-}: OptionsProps) => {
+const AlgorithmPage = () => {
   const { algorithmKey } = useParams();
+
+  // initialize with default
   let algorithm: Algorithm = algorithms[0];
 
   if (algorithmKey) {
@@ -20,22 +19,14 @@ const AlgorithmPage = ({
   const sortOrders = useGetSortOrders();
 
   return algorithm ? (
-    <div>
-      <Link to="/">
-        <button>Back to All</button>
-      </Link>
-
-      <div>{algorithm.name}</div>
-      <Options
-        onNumColumnsChange={onNumColumnsChange}
-        onSolveAllClick={onSolveAllClick}
-        onResetAllClick={onResetAllClick}
-      />
+    <main>
+      <h1>{algorithm.name} Sort</h1>
+      <Options isHomePage={false} />
       <div>
-        <table>
+        <table className="single-column">
           <tbody>
             {Object.values(sortOrders).map((sortOrder) => (
-              <tr>
+              <tr key={sortOrder.key}>
                 <td>
                   <div>{sortOrder.name}</div>
                   <Board
@@ -52,7 +43,7 @@ const AlgorithmPage = ({
           </tbody>
         </table>
       </div>
-    </div>
+    </main>
   ) : (
     <div>No algorithm</div>
   );

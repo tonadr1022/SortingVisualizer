@@ -1,3 +1,4 @@
+import { SortOrder } from "../interfaces/interfaces";
 import {
   useGetFewUniqueColumns,
   useGetNearlySortedColumns,
@@ -5,8 +6,10 @@ import {
   useGetReverseColumns,
 } from "../utils/getInitialColumns";
 
-export const useGetSortOrders = () => {
-  console.log("in get sort orders");
+interface SortOrders {
+  [key: string]: SortOrder;
+}
+export const useGetSortOrders = (): SortOrders => {
   const randomColumns = useGetRandomColumns();
   const reversedColumns = useGetReverseColumns();
   const nearlySortedColumns = useGetNearlySortedColumns();

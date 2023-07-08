@@ -8,8 +8,8 @@ import { useContext, useEffect, useState } from "react";
 import ColumnComponent from "../display/ColumnComponent";
 import {
   IsSolveAllContext,
-  ResetAllContext,
   NumColumnsContext,
+  IsResetAllContext,
 } from "../../App";
 import useBoardReset from "../../hooks/useBoardReset";
 import useBoardSolve from "../../hooks/useBoardSolve";
@@ -19,7 +19,12 @@ interface BoardProps {
   initialColumns: Column[];
   sortOrderName: string;
   sortOrderKey: string;
-  sortFunction: ({ board, setBoard }: sortingAlgorithmParams) => Promise<void>;
+  sortFunction: ({
+    board,
+    setBoard,
+    numColumns,
+    speedMultiplier,
+  }: sortingAlgorithmParams) => Promise<void>;
 }
 
 const Board = ({
@@ -33,11 +38,9 @@ const Board = ({
     algorithm: algorithmName,
   });
 
-  const IsSolveAllContextValue = useContext(IsSolveAllContext);
-  const isSolveAll = IsSolveAllContextValue?.isSolveAll;
-
-  const resetAll = useContext(ResetAllContext);
-  const numColumns = useContext(NumColumnsContext);
+  const { isSolveAll } = useContext(IsSolveAllContext);
+  const { isResetAll } = useContext(IsResetAllContext);
+  const { numColumns } = useContext(NumColumnsContext);
 
   const handleBoardSolve = useBoardSolve({
     setBoard,
@@ -54,19 +57,17 @@ const Board = ({
   }, [isSolveAll]);
 
   useEffect(() => {
-    if (resetAll || numColumns > 0) {
+    if (isResetAll || (numColumns && numColumns > 0)) {
       handleBoardReset();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [resetAll, numColumns]);
+  }, [isResetAll, numColumns]);
 
   return (
-    <div className="board">
-      <div className="board-columns-container" onClick={handleBoardSolve}>
-        {board.columns.map((column, i) => (
-          <ColumnComponent key={i} column={column} />
-        ))}
-      </div>
+    <div className="board-columns-container" onClick={handleBoardSolve}>
+      {board.columns.map((column, i) => (
+        <ColumnComponent key={i} column={column} />
+      ))}
     </div>
   );
 };

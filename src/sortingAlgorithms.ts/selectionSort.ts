@@ -5,6 +5,8 @@ import { swap } from "./sortingUtils";
 const selectionSort = async ({
   board,
   setBoard,
+  numColumns,
+  speedMultiplier,
 }: sortingAlgorithmParams): Promise<void> => {
   const { columns } = board;
   // iterate through array from zero. For each iteration, find min remaining and swap with val at i if it is less than
@@ -20,7 +22,7 @@ const selectionSort = async ({
       columns[j].isCurrentElement = true;
       columns[j - 1].isCurrentElement = false;
       setBoard((prevBoard) => ({ ...prevBoard }));
-      await pause();
+      await pause({ numColumns, speedMultiplier });
     }
 
     // swap if new minimum

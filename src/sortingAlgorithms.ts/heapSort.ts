@@ -8,7 +8,12 @@ import { swap } from "./sortingUtils";
  *
  * @param param
  */
-const heapSort = async ({ board, setBoard }: sortingAlgorithmParams) => {
+const heapSort = async ({
+  board,
+  setBoard,
+  numColumns,
+  speedMultiplier,
+}: sortingAlgorithmParams) => {
   const { columns } = board;
   const parent = (i: number): number => Math.floor((i - 1) / 2);
 
@@ -33,7 +38,7 @@ const heapSort = async ({ board, setBoard }: sortingAlgorithmParams) => {
     }
     columns[i].isCurrentElement = true;
     setBoard((prevBoard) => ({ ...prevBoard }));
-    await pause();
+    await pause({ numColumns, speedMultiplier });
     columns[i].isCurrentElement = false;
     // if we found a max among children, swap and percolate down
     if (max !== i) {
@@ -53,7 +58,7 @@ const heapSort = async ({ board, setBoard }: sortingAlgorithmParams) => {
   for (let i = columns.length - 1; i >= 0; i--) {
     swap(columns, 0, i);
     await percolateDown(i, 0);
-    await pause();
+    await pause({ numColumns, speedMultiplier });
     columns[i].isFinalOrder = true;
     setBoard((prevBoard) => ({ ...prevBoard }));
   }

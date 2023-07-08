@@ -1,25 +1,70 @@
-.board-column {
-  background-color: rgb(255, 127, 127);
-  width: 6px;
-}
-
-.board-table {
-  display: flex;
-  flex-direction: row;
-}
-
 .board-columns-container {
   display: flex;
   flex-direction: row;
-  height: 100px;
+
+  width: 100%;
 }
 
-.board {
+th {
+  border-radius: 4px;
+  transition: 0.25s;
+  cursor: pointer;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  width: 20%;
+  border: 1px solid green;
+}
+
+td {
+  cursor: pointer;
+  border-radius: 4px;
+  transition: 0.25s;
+  border: 1px solid green;
+}
+td.single-column {
   display: flex;
   flex-direction: column;
-  border-radius: 10px;
-  transition: 0.3s;
+  justify-content: center;
+  align-items: center;
 }
-.board:hover {
+
+input {
+  width: 100px;
+  padding: 0px;
+  margin: 0px;
+}
+table {
+  width: 100vw;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.single-column-table {
+  padding-left: 20%;
+  padding-right: 20%;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+td:hover,
+th:hover {
   background-color: rgba(135, 206, 235, 0.1);
+}
+
+.flex-row-center {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: centers;
+}
+
+.options-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

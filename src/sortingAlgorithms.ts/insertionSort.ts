@@ -5,6 +5,8 @@ import { swap } from "./sortingUtils";
 const insertionSort = async ({
   board,
   setBoard,
+  numColumns,
+  speedMultiplier,
 }: sortingAlgorithmParams): Promise<void> => {
   const { columns } = board;
   // pointers for sorted part of array
@@ -22,7 +24,7 @@ const insertionSort = async ({
 
     while (j > 0 && columns[j].value < columns[j - 1].value) {
       columns[j].isCurrentElement = true;
-      await pause();
+      await pause({ numColumns, speedMultiplier });
       swap(columns, j, j - 1);
       columns[j - 1].isCurrentElement = false;
       j--;

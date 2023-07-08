@@ -1,6 +1,6 @@
 import { sortingAlgorithmParams } from "../interfaces/interfaces";
 
-const shellSort = async ({
+const mergeSort = async ({
   board,
   setBoard,
   numColumns,
@@ -9,4 +9,4 @@ const shellSort = async ({
   const { columns } = board;
 };
 
-export default shellSort;
+export default mergeSort;

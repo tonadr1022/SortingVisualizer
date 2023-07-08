@@ -1,21 +1,13 @@
 import SortingAlgorithmVisualizer from "../components/SortingAlgorithmVisualizer";
 import Options from "../components/ui/Options";
-import { OptionsProps } from "../interfaces/interfaces";
 
-const HomePage = ({
-  onSolveAllClick,
-  onResetAllClick,
-  onNumColumnsChange,
-}: OptionsProps) => {
+const HomePage = () => {
   return (
-    <>
-      <Options
-        onNumColumnsChange={onNumColumnsChange}
-        onSolveAllClick={onSolveAllClick}
-        onResetAllClick={onResetAllClick}
-      />
+    <main>
+      <h1>Sorting Algorithms</h1>
+      <Options isHomePage={true} />
       <SortingAlgorithmVisualizer />
-    </>
+    </main>
   );
 };
 

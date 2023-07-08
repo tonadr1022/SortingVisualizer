@@ -1,6 +1,14 @@
+interface PauseParams {
+  numColumns: number;
+  speedMultiplier: number;
+}
 /**
- * Pauses execution for x milliseconds
+ * pauses execution for x milliseconds
  */
-export const pause = async (): Promise<void> => {
-  await new Promise((resolve) => setTimeout(resolve, 5));
+export const pause = async ({
+  numColumns,
+  speedMultiplier,
+}: PauseParams): Promise<void> => {
+  const waitTime = (500 / numColumns) * speedMultiplier;
+  await new Promise((resolve) => setTimeout(resolve, waitTime));
 };

@@ -4,12 +4,11 @@ import { swap } from "../sortingAlgorithms.ts/sortingUtils";
 import { NumColumnsContext } from "../App";
 
 export const useGetRandomColumns = (): Column[] => {
-  console.log("get rand");
-  const numColumns = useContext(NumColumnsContext);
+  const { numColumns } = useContext(NumColumnsContext);
   const initialColumns: Column[] = [];
   for (let i = 0; i < numColumns; i++) {
     initialColumns.push({
-      value: Math.floor(Math.random() * 30),
+      value: Math.floor(Math.random() * numColumns + 1),
       isFinalOrder: false,
       isCurrentElement: false,
       isSeen: false,
@@ -20,7 +19,7 @@ export const useGetRandomColumns = (): Column[] => {
 };
 
 export const useGetReverseColumns = (): Column[] => {
-  const numColumns = useContext(NumColumnsContext);
+  const { numColumns } = useContext(NumColumnsContext);
   const initialColumns: Column[] = [];
   for (let i = numColumns; i > 0; i--) {
     initialColumns.push({
@@ -35,9 +34,9 @@ export const useGetReverseColumns = (): Column[] => {
 };
 
 export const useGetNearlySortedColumns = (): Column[] => {
-  const numColumns = useContext(NumColumnsContext);
+  const { numColumns } = useContext(NumColumnsContext);
   const initialColumns: Column[] = [];
-  for (let i = 0; i < numColumns; i++) {
+  for (let i = 1; i <= numColumns; i++) {
     initialColumns.push({
       value: i,
       isFinalOrder: false,
@@ -57,7 +56,7 @@ export const useGetNearlySortedColumns = (): Column[] => {
 
 const NUM_UNIQUE_COLUMNS = 5;
 export const useGetFewUniqueColumns = (): Column[] => {
-  const numColumns = useContext(NumColumnsContext);
+  const { numColumns } = useContext(NumColumnsContext);
   const initialColumns: Column[] = [];
   const values = [];
   for (let i = 1; i <= NUM_UNIQUE_COLUMNS; i++) {
