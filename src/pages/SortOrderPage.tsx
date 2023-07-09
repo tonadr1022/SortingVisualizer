@@ -23,12 +23,12 @@ const SortOrderPage = () => {
       <h1>{sortOrder.name} Order</h1>
       <Options isHomePage={false} />
       <div>
-        <table className="single-column-table">
+        <table className="single-column">
           <tbody>
             {Object.values(algorithms).map((algorithm) => (
-              <tr>
+              <tr key={algorithm.key}>
                 <td className="single-column">
-                  <h2 className="board-name">{algorithm.name}</h2>
+                  <h3 className="board-name">{algorithm.name}</h3>
                   <Board
                     key={`${algorithm.name}:${sortOrder.key}`}
                     algorithmName={algorithm.name}

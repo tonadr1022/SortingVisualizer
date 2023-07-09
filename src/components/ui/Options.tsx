@@ -34,11 +34,12 @@ const Options = ({ isHomePage }: Props) => {
   const onSpeedChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const sliderValue = Number(e.target.value);
     let speedMultiplier;
-    if (sliderValue < 20) speedMultiplier = 8;
-    else if (sliderValue < 40) speedMultiplier = 4;
+    if (sliderValue < 10) speedMultiplier = 0.125 / 2;
+    else if (sliderValue < 20) speedMultiplier = 0.125;
+    else if (sliderValue < 40) speedMultiplier = 0.25;
     else if (sliderValue < 60) speedMultiplier = 1;
-    else if (sliderValue < 80) speedMultiplier = 0.25;
-    else speedMultiplier = 0.125;
+    else if (sliderValue < 80) speedMultiplier = 4;
+    else speedMultiplier = 8;
 
     setSpeedMultiplier(speedMultiplier);
   };
@@ -46,10 +47,23 @@ const Options = ({ isHomePage }: Props) => {
   const onNumColumnsChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const sliderValue = Number(e.target.value);
     let numColumns;
-    if (sliderValue < 25) numColumns = 10;
-    else if (sliderValue < 50) numColumns = 20;
-    else if (sliderValue < 75) numColumns = 30;
-    else numColumns = 40;
+    if (isHomePage) {
+      if (sliderValue < 25) numColumns = 10;
+      else if (sliderValue < 50) numColumns = 20;
+      else if (sliderValue < 75) numColumns = 30;
+      else numColumns = 40;
+    } else {
+      if (sliderValue < 10) numColumns = 10;
+      else if (sliderValue < 20) numColumns = 20;
+      else if (sliderValue < 30) numColumns = 40;
+      else if (sliderValue < 40) numColumns = 60;
+      else if (sliderValue < 50) numColumns = 80;
+      else if (sliderValue < 60) numColumns = 100;
+      else if (sliderValue < 70) numColumns = 120;
+      else if (sliderValue < 80) numColumns = 140;
+      else if (sliderValue < 90) numColumns = 170;
+      else numColumns = 200;
+    }
 
     setNumColumns(numColumns);
   };
@@ -80,7 +94,7 @@ const Options = ({ isHomePage }: Props) => {
       <div className="flex-row-center">
         <p
           style={{ marginTop: "0.5em", marginBottom: "0.5em", width: "125px" }}>
-          Speed: {1 / speedMultiplier}x
+          Speed: {speedMultiplier}x
         </p>
         <input
           type="range"

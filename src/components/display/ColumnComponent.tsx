@@ -14,7 +14,7 @@ const ColumnComponent = ({ column }: props) => {
       <div
         style={{
           width: "100%",
-          margin: "0.5px",
+          margin: "1px",
           display: "flex",
           flexDirection: "column",
         }}>

@@ -1,10 +1,21 @@
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { NumColumnsContext, SpeedMultiplierContext } from "../../App";
 
 const HomeButton = () => {
+  const navigate = useNavigate();
+  const { setNumColumns } = useContext(NumColumnsContext);
+  const { setSpeedMultiplier } = useContext(SpeedMultiplierContext);
+
+  const handleHomeClick = () => {
+    setNumColumns(20);
+    setSpeedMultiplier(1);
+    navigate("/");
+  };
   return (
-    <Link to="/" style={{ alignSelf: "start" }}>
-      <button>Home</button>
-    </Link>
+    <button style={{ margin: 2 }} onClick={handleHomeClick}>
+      Home
+    </button>
   );
 };
 

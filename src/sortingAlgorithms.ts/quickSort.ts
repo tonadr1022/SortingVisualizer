@@ -9,38 +9,36 @@ const quickSort = async ({
   speedMultiplier,
 }: sortingAlgorithmParams): Promise<void> => {
   const { columns } = board;
-  const partition = async (low: number, high: number): Promise<number> => {
-    const pivotIndex = Math.floor((low + high) / 2);
-    console.log("old", columns[pivotIndex].value);
 
+  const partition = async (low: number, high: number): Promise<number> => {
+    const pivotIndex = low;
     const pivotValue = columns[pivotIndex].value;
-    columns[pivotIndex].isCurrentElement = true;
     let i = low;
     let j = high;
-    setBoard((prevBoard) => ({ ...prevBoard }));
+
     while (i <= j) {
       columns[i].isCurrentElement = true;
       columns[j].isCurrentElement = true;
       setBoard((prevBoard) => ({ ...prevBoard }));
       await pause({ numColumns, speedMultiplier });
-
+      columns[i].isCurrentElement = false;
+      columns[j].isCurrentElement = false;
       while (columns[i].value < pivotValue) {
-        columns[i].isCurrentElement = false;
+        // columns[i].isCurrentElement = false;
         i++;
       }
       while (columns[j].value > pivotValue) {
-        columns[j].isCurrentElement = false;
+        // columns[j].isCurrentElement = false;
         j--;
       }
+      setBoard((prevBoard) => ({ ...prevBoard }));
       if (i <= j) {
         swap(columns, i, j);
         i++;
         j--;
+        setBoard((prevBoard) => ({ ...prevBoard }));
       }
     }
-    console.log("new", columns[pivotIndex].value);
-    columns[pivotIndex].isCurrentElement = false;
-    setBoard((prevBoard) => ({ ...prevBoard }));
     return i;
   };
   const quickSortHelper = async (low: number, high: number) => {
@@ -48,13 +46,20 @@ const quickSort = async ({
     if (low < pivotIndex - 1) {
       await quickSortHelper(low, pivotIndex - 1);
     }
+    for (let i = low; i <= pivotIndex - 1; i++) {
+      columns[i].isFinalOrder = true;
+    }
+    setBoard((prevBoard) => ({ ...prevBoard }));
     if (pivotIndex < high) {
       await quickSortHelper(pivotIndex, high);
     }
+    for (let i = pivotIndex; i <= high; i++) {
+      columns[i].isFinalOrder = true;
+    }
+    setBoard((prevBoard) => ({ ...prevBoard }));
   };
 
   await quickSortHelper(0, columns.length - 1);
-  console.log(columns.map((column) => column.value));
 };
 
 export default quickSort;

@@ -4,7 +4,6 @@ import { Algorithm } from "../interfaces/interfaces";
 import Options from "../components/ui/Options";
 import Board from "../components/ui/Board";
 import { algorithms } from "../components/algorithms";
-import HomeButton from "../components/ui/HomeButton";
 
 const AlgorithmPage = () => {
   const { algorithmKey } = useParams();
@@ -27,8 +26,8 @@ const AlgorithmPage = () => {
           <tbody>
             {Object.values(sortOrders).map((sortOrder) => (
               <tr key={sortOrder.key}>
-                <td>
-                  <div>{sortOrder.name}</div>
+                <td className="single-column">
+                  <h3>{sortOrder.name}</h3>
                   <Board
                     key={`${algorithm.name}:${sortOrder.key}`}
                     algorithmName={algorithm.name}
