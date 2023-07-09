@@ -34,9 +34,10 @@ const SortingAlgorithmVisualizer = () => {
               }}>
               {algorithm.name}
             </th>
-
             {Object.values(sortOrders).map((sortOrder) => (
-              <td key={`${algorithm.name}:${sortOrder.key}`}>
+              <td
+                key={`${algorithm.name}:${sortOrder.key}`}
+                style={{ height: "80px" }}>
                 <Board algorithm={algorithm} sortOrder={sortOrder} />
               </td>
             ))}

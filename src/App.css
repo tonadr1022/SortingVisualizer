@@ -19,16 +19,17 @@ th {
 .board-columns-container {
   cursor: pointer;
   border-radius: 4px;
-  transition: 0.25s;
+  transition: 0.2s;
   border: 1px solid green;
-  height: 100%;
+  flex: 1;
 }
 
-td.single-column {
+.single-column-td {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  flex-grow: 1;
 }
 
 .overlay-button {
@@ -57,11 +58,6 @@ table {
   padding-right: 5%;
 }
 
-.single-column-table {
-  padding-left: 20%;
-  padding-right: 20%;
-}
-
 main {
   display: flex;
   flex-direction: column;
@@ -71,7 +67,7 @@ main {
 
 th:hover,
 .board-columns-container:hover {
-  background-color: rgba(135, 206, 235, 0.3);
+  background-color: rgba(135, 206, 235, 0.5);
 }
 
 .flex-row-center {

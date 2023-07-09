@@ -10,5 +10,7 @@ export const pause = async ({
   speedMultiplier,
 }: PauseParams): Promise<void> => {
   const waitTime = 500 / numColumns / speedMultiplier;
+  console.log(waitTime);
+
   await new Promise((resolve) => setTimeout(resolve, waitTime));
 };

@@ -35,11 +35,14 @@ const Options = ({ pageType }: Props) => {
   const onSpeedChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const sliderValue = Number(e.target.value);
     let speedMultiplier;
-    if (sliderValue < 10) speedMultiplier = 0.125 / 2;
-    else if (sliderValue < 20) speedMultiplier = 0.125;
-    else if (sliderValue < 40) speedMultiplier = 0.25;
-    else if (sliderValue < 60) speedMultiplier = 1;
-    else if (sliderValue < 80) speedMultiplier = 4;
+    if (sliderValue < 10) speedMultiplier = 1 / 32;
+    else if (sliderValue < 20) speedMultiplier = 1 / 16;
+    else if (sliderValue < 30) speedMultiplier = 1 / 8;
+    else if (sliderValue < 40) speedMultiplier = 1 / 4;
+    else if (sliderValue < 50) speedMultiplier = 1 / 2;
+    else if (sliderValue < 64) speedMultiplier = 1;
+    else if (sliderValue < 76) speedMultiplier = 2;
+    else if (sliderValue < 88) speedMultiplier = 4;
     else speedMultiplier = 8;
 
     setSpeedMultiplier(speedMultiplier);

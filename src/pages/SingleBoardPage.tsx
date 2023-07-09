@@ -21,10 +21,12 @@ const SingleBoardPage = () => {
 
   return (
     <main>
-      <h1 style={{ margin: 0 }}>{algorithm.name} Sort</h1>
-      <h3 style={{ marginBottom: 8 }}>{sortOrder.name} Order</h3>
+      <h1 style={{ textAlign: "center" }}>
+        {algorithm.name} Sort - {sortOrder.name}
+      </h1>
       <Options pageType="single" />
-      <div style={{ width: "90vw" }}>
+
+      <div style={{ width: "90vw", height: "500px" }}>
         <Board
           algorithm={algorithm}
           sortOrder={sortOrder}

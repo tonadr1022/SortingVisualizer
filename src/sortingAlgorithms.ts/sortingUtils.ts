@@ -1,4 +1,4 @@
-import { column } from "../interfaces/interfaces";
+import { Column } from "../interfaces/interfaces";
 
 /**
  * swaps two elements of column array in place

@@ -21,24 +21,30 @@ const AlgorithmPage = () => {
     <main>
       <h1>{algorithm.name} Sort</h1>
       <Options pageType="other" />
-      <div>
-        <table className="single-column">
-          <tbody>
-            {Object.values(sortOrders).map((sortOrder) => (
-              <tr key={sortOrder.key}>
-                <td className="single-column">
-                  <h3>{sortOrder.name}</h3>
-                  <Board
-                    key={`${algorithm.name}:${sortOrder.key}`}
-                    algorithm={algorithm}
-                    sortOrder={sortOrder}
-                  />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <table className="single-column-table" style={{ flexGrow: 1 }}>
+        <tbody>
+          {Object.values(sortOrders).map((sortOrder) => (
+            <tr key={sortOrder.key}>
+              <td
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  height: "200px",
+                }}>
+                <h3 style={{ width: "5em", textAlign: "center" }}>
+                  {sortOrder.name}
+                </h3>
+                <Board
+                  key={`${algorithm.name}:${sortOrder.key}`}
+                  algorithm={algorithm}
+                  sortOrder={sortOrder}
+                />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </main>
   ) : (
     <div>No algorithm</div>

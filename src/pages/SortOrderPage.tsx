@@ -20,13 +20,21 @@ const SortOrderPage = () => {
     <main>
       <h1>{sortOrder.name} Order</h1>
       <Options pageType="other" />
-      <div>
+      <div style={{ flexGrow: 1 }}>
         <table className="single-column">
           <tbody>
             {Object.values(algorithms).map((algorithm) => (
               <tr key={algorithm.key}>
-                <td className="single-column">
-                  <h3 className="board-name">{algorithm.name}</h3>
+                <td
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    height: "100px",
+                  }}>
+                  <h3 style={{ width: "5em", textAlign: "center" }}>
+                    {algorithm.name}
+                  </h3>
                   <Board algorithm={algorithm} sortOrder={sortOrder} />
                 </td>
               </tr>

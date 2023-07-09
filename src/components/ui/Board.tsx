@@ -30,7 +30,7 @@ const Board = ({ algorithm, sortOrder, isSingleBoard }: BoardProps) => {
   const { isSolveAll } = useContext(IsSolveAllContext);
   const { isResetAll } = useContext(IsResetAllContext);
   const { numColumns } = useContext(NumColumnsContext);
-  const maxHeight = isSingleBoard ? 400 : 80;
+
   const handleBoardSolve = useBoardSolve({
     setBoard,
     sortFunction,
@@ -64,7 +64,8 @@ const Board = ({ algorithm, sortOrder, isSingleBoard }: BoardProps) => {
       }}
       onMouseLeave={() => {
         setIsHovered(false);
-      }}>
+      }}
+      style={{ height: "100%" }}>
       {!isSingleBoard && isHovered && (
         <div>
           <button className="overlay-button" onClick={handleViewBoard}>
@@ -73,7 +74,7 @@ const Board = ({ algorithm, sortOrder, isSingleBoard }: BoardProps) => {
         </div>
       )}
       {board.columns.map((column, i) => (
-        <ColumnComponent key={i} column={column} maxHeight={maxHeight} />
+        <ColumnComponent key={i} column={column} />
       ))}
     </div>
   );
