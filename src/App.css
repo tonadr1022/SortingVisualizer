@@ -1,6 +1,7 @@
 .board-columns-container {
   display: flex;
   flex-direction: row;
+  position: relative;
 
   width: 100%;
 }
@@ -15,12 +16,14 @@ th {
   border: 1px solid green;
 }
 
-td {
+.board-columns-container {
   cursor: pointer;
   border-radius: 4px;
   transition: 0.25s;
   border: 1px solid green;
+  height: 100%;
 }
+
 td.single-column {
   display: flex;
   flex-direction: column;
@@ -28,11 +31,26 @@ td.single-column {
   align-items: center;
 }
 
+.overlay-button {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translate(-50%);
+  padding: 2px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: 0.25s;
+}
+
 input {
   width: 100px;
   padding: 0px;
   margin: 0px;
 }
+
 table {
   width: 100vw;
   padding-left: 5%;
@@ -51,9 +69,9 @@ main {
   justify-content: center;
 }
 
-td:hover,
-th:hover {
-  background-color: rgba(135, 206, 235, 0.1);
+th:hover,
+.board-columns-container:hover {
+  background-color: rgba(135, 206, 235, 0.3);
 }
 
 .flex-row-center {

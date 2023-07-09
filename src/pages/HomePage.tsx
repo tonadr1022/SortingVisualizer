@@ -5,7 +5,7 @@ const HomePage = () => {
   return (
     <main>
       <h1>Sorting Algorithms</h1>
-      <Options isHomePage={true} />
+      <Options pageType="home" />
       <SortingAlgorithmVisualizer />
     </main>
   );

@@ -1,11 +1,9 @@
 import { useParams } from "react-router";
 import { SortOrder } from "../interfaces/interfaces";
 import { useGetSortOrders } from "../components/sortOrders";
-import { Link } from "react-router-dom";
 import Options from "../components/ui/Options";
 import { algorithms } from "../components/algorithms";
 import Board from "../components/ui/Board";
-import HomeButton from "../components/ui/HomeButton";
 
 const SortOrderPage = () => {
   const { sortOrderKey } = useParams();
@@ -21,7 +19,7 @@ const SortOrderPage = () => {
   return (
     <main>
       <h1>{sortOrder.name} Order</h1>
-      <Options isHomePage={false} />
+      <Options pageType="other" />
       <div>
         <table className="single-column">
           <tbody>
@@ -29,14 +27,7 @@ const SortOrderPage = () => {
               <tr key={algorithm.key}>
                 <td className="single-column">
                   <h3 className="board-name">{algorithm.name}</h3>
-                  <Board
-                    key={`${algorithm.name}:${sortOrder.key}`}
-                    algorithmName={algorithm.name}
-                    sortOrderName={sortOrder.name}
-                    sortOrderKey={sortOrder.key}
-                    sortFunction={algorithm.sortFunction}
-                    initialColumns={sortOrder.initialColumns}
-                  />
+                  <Board algorithm={algorithm} sortOrder={sortOrder} />
                 </td>
               </tr>
             ))}

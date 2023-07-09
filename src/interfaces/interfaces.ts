@@ -54,3 +54,5 @@ export interface SortOrder {
   getColumnsFunction: () => Column[];
   initialColumns: Column[];
 }
+
+export type PageType = "home" | "single" | "other";

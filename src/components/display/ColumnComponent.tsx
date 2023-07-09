@@ -4,16 +4,18 @@ import { Column } from "../../interfaces/interfaces";
 import { NumColumnsContext } from "../../App";
 interface props {
   column: Column;
+  maxHeight: number;
 }
 
-const ColumnComponent = ({ column }: props) => {
+const ColumnComponent = ({ column, maxHeight }: props) => {
   const { numColumns } = useContext(NumColumnsContext);
-  const height = (column.value / numColumns) * 90;
+  const height = (column.value / numColumns) * maxHeight;
   return (
     numColumns && (
       <div
         style={{
           width: "100%",
+
           margin: "1px",
           display: "flex",
           flexDirection: "column",

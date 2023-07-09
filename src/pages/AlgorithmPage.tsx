@@ -20,7 +20,7 @@ const AlgorithmPage = () => {
   return algorithm ? (
     <main>
       <h1>{algorithm.name} Sort</h1>
-      <Options isHomePage={false} />
+      <Options pageType="other" />
       <div>
         <table className="single-column">
           <tbody>
@@ -30,11 +30,8 @@ const AlgorithmPage = () => {
                   <h3>{sortOrder.name}</h3>
                   <Board
                     key={`${algorithm.name}:${sortOrder.key}`}
-                    algorithmName={algorithm.name}
-                    sortOrderName={sortOrder.name}
-                    sortOrderKey={sortOrder.key}
-                    sortFunction={algorithm.sortFunction}
-                    initialColumns={sortOrder.initialColumns}
+                    algorithm={algorithm}
+                    sortOrder={sortOrder}
                   />
                 </td>
               </tr>

@@ -15,6 +15,8 @@ export const useGetRandomColumns = (): Column[] => {
       isComparedToElement: false,
     });
   }
+  const randIndex = Math.floor(Math.random() * numColumns);
+  initialColumns[randIndex].value = numColumns;
   return initialColumns;
 };
 

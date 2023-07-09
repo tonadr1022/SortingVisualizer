@@ -13,7 +13,6 @@ const SortingAlgorithmVisualizer = () => {
           <th></th>
           {Object.values(sortOrders).map((sortOrder) => (
             <th
-              className="main-table-th"
               style={{ padding: 0, whiteSpace: "normal" }}
               key={sortOrder.name}
               onClick={(e) => {
@@ -29,7 +28,6 @@ const SortingAlgorithmVisualizer = () => {
         {Object.values(algorithms).map((algorithm) => (
           <tr key={algorithm.name}>
             <th
-              className="main-table-th"
               onClick={(e) => {
                 e.preventDefault();
                 navigate(`/algorithms/${algorithm.key}-sort`);
@@ -38,16 +36,8 @@ const SortingAlgorithmVisualizer = () => {
             </th>
 
             {Object.values(sortOrders).map((sortOrder) => (
-              <td
-                className="main-table-td"
-                key={`${algorithm.name}:${sortOrder.key}`}>
-                <Board
-                  algorithmName={algorithm.name}
-                  sortOrderName={sortOrder.name}
-                  sortOrderKey={sortOrder.key}
-                  sortFunction={algorithm.sortFunction}
-                  initialColumns={sortOrder.initialColumns}
-                />
+              <td key={`${algorithm.name}:${sortOrder.key}`}>
+                <Board algorithm={algorithm} sortOrder={sortOrder} />
               </td>
             ))}
           </tr>

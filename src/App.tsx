@@ -4,6 +4,7 @@ import { createContext, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AlgorithmPage from "./pages/AlgorithmPage";
 import SortOrderPage from "./pages/SortOrderPage";
+import SingleBoardPage from "./pages/SingleBoardPage";
 
 interface IsSolveAllInterface {
   isSolveAll: boolean;
@@ -64,6 +65,10 @@ function App() {
                   <Route
                     path="/sorts/:sortOrderKey"
                     element={<SortOrderPage />}
+                  />
+                  <Route
+                    path="/algorithms/:algorithmKey/:sortOrderKey"
+                    element={<SingleBoardPage />}
                   />
                 </Routes>
               </BrowserRouter>

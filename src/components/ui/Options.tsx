@@ -6,10 +6,11 @@ import {
   SpeedMultiplierContext,
 } from "../../App";
 import HomeButton from "./HomeButton";
+import { PageType } from "../../interfaces/interfaces";
 interface Props {
-  isHomePage: boolean;
+  pageType: PageType;
 }
-const Options = ({ isHomePage }: Props) => {
+const Options = ({ pageType }: Props) => {
   const { setIsSolveAll } = useContext(IsSolveAllContext);
   const { setIsResetAll } = useContext(IsResetAllContext);
   const { numColumns, setNumColumns } = useContext(NumColumnsContext);
@@ -47,7 +48,7 @@ const Options = ({ isHomePage }: Props) => {
   const onNumColumnsChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const sliderValue = Number(e.target.value);
     let numColumns;
-    if (isHomePage) {
+    if (pageType === "home") {
       if (sliderValue < 25) numColumns = 10;
       else if (sliderValue < 50) numColumns = 20;
       else if (sliderValue < 75) numColumns = 30;
@@ -71,9 +72,9 @@ const Options = ({ isHomePage }: Props) => {
   return (
     <div className="options-container">
       <div className="flex-row-center">
-        {!isHomePage && <HomeButton />}
+        {pageType !== "home" && <HomeButton />}
         <button style={{ margin: 2 }} onClick={onSolveAllClick}>
-          Solve All
+          Solve{pageType !== "single" ? " All" : ""}
         </button>
         <button style={{ margin: 2 }} onClick={onResetAllClick}>
           Reset

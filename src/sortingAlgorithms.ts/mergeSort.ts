@@ -9,29 +9,28 @@ const mergeSort = async ({
 }: sortingAlgorithmParams): Promise<void> => {
   const { columns } = board;
 
-  async function merge(arr, l, m, r) {
-    console.log(l, m, r);
-    var n1 = m - l + 1;
-    var n2 = r - m;
+  async function merge(
+    arr: number[],
+    l: number,
+    m: number,
+    r: number
+  ): Promise<void> {
+    const n1 = m - l + 1; // num elements in left arr
+    const n2 = r - m; // num elements in right arr
 
     // Create temp arrays
-    var L = new Array(n1);
-    var R = new Array(n2);
+    const L = new Array(n1);
+    const R = new Array(n2);
 
     // Copy data to temp arrays L[] and R[]
-    for (var i = 0; i < n1; i++) L[i] = arr[l + i];
-    for (var j = 0; j < n2; j++) R[j] = arr[m + 1 + j];
+    for (let i = 0; i < n1; i++) L[i] = arr[l + i];
+    for (let j = 0; j < n2; j++) R[j] = arr[m + 1 + j];
 
     // Merge the temp arrays back into arr[l..r]
 
-    // Initial index of first subarray
-    var i = 0;
-
-    // Initial index of second subarray
-    var j = 0;
-
-    // Initial index of merged subarray
-    var k = l;
+    let i = 0; // index of first subarray
+    let j = 0; // index of second subarray
+    let k = l; // index of merged subarray
 
     while (i < n1 && j < n2) {
       columns[k].isCurrentElement = true;
@@ -66,13 +65,16 @@ const mergeSort = async ({
     }
   }
 
-  // l is for left index and r is
-  // right index of the sub-array
-  // of arr to be sorted
-  async function mergeSortHelper(arr: number[], l: number, r: number) {
+  // l is left idx, r is right idx
+  async function mergeSortHelper(
+    arr: number[],
+    l: number,
+    r: number
+  ): Promise<void> {
     if (l >= r) {
       return;
     }
+
     const m = l + parseInt(String((r - l) / 2));
     await mergeSortHelper(arr, l, m);
     await mergeSortHelper(arr, m + 1, r);
@@ -91,7 +93,6 @@ const mergeSort = async ({
       newCols[i].value = arr[i];
     }
     setBoard((prevBoard) => ({ ...prevBoard, columns: newCols }));
-    return arr;
   }
 
   setBoard((prevBoard) => ({ ...prevBoard, columns: columns.slice(0) }));
